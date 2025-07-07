@@ -93,6 +93,12 @@
       font-size: 80px;
     }
 
+
+    button.pronounce {
+      font-size: 24px;
+      padding: 12px 20px;
+    }
+
 </style>
 </head>
 <body>
@@ -169,7 +175,7 @@ function speak(word) {
 
       box.innerHTML = `
         <p><strong>${quiz.question}</strong></p>
-        <button onclick="speak('${word}')">🔊 발음 듣기</button>
+        <button class="pronounce" onclick="speak('${word}')">🔊 발음 듣기</button>
         <audio id="audio-${word.toLowerCase()}" src="tts/${word.toLowerCase()}.mp3"></audio>
         ${buttonsHTML}
       `;
