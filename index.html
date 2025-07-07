@@ -102,8 +102,24 @@
     <div id="feedback"></div>
   </div>
 
-  <script src="quizzes.js"></script>
-  <script>
+  
+  
+
+  <audio id="correct-audio" src="정답.mp3"></audio>
+  <audio id="wrong-audio" src="오답.mp3"></audio>
+
+<script src="quizzes.js">
+function speak(word) {
+  const audioId = "audio-" + word.toLowerCase();
+  const audio = document.getElementById(audioId);
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+}
+
+</script>
+<script>
     let currentLevel = '';
     let quizQueue = [];
     let currentIndex = 0;
@@ -151,15 +167,7 @@
       `;
     }
 
-    function speak(text) {
-      const audioId = `audio-${text.toLowerCase()}`;
-      const audio = document.getElementById(audioId);
-      if (audio) audio.play();
-    }
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'en-US';
-      speechSynthesis.speak(utter);
-    }
+    
 
     function checkAnswer(button, correctAnswer) {
       const userChoice = button.textContent.trim();
@@ -186,10 +194,16 @@
         setTimeout(showNextQuiz, 2000);
       }
     }
-  </script>
+  
+function speak(word) {
+  const audioId = "audio-" + word.toLowerCase();
+  const audio = document.getElementById(audioId);
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+}
 
-  <audio id="correct-audio" src="정답.mp3"></audio>
-  <audio id="wrong-audio" src="오답.mp3"></audio>
-
+</script>
 </body>
 </html>
