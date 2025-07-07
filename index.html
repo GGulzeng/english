@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>퀴즈</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      font-size: 2.6em;
+      margin-bottom: 30px;
+      font-weight: bold;
+      color: #333;
+    }
+    #main-menu {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    
+    #main-menu button {
+      width: 360px;
+      height: 360px;
+      font-size: 44px;
+      font-weight: bold;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      color: #000;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+    
+    #main-menu button:nth-child(1) {
+      background-color: #f28b82;
+    }
+    #main-menu button:nth-child(2) {
+      background-color: #fbbc04;
+    }
+    #main-menu button:nth-child(3) {
+      background-color: #a7ffeb;
+    }
+    .choices-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 30px;
+    }
+    .choice-btn {
+      width: 40%;
+      min-width: 300px;
+      height: 120px;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 14px;
+      background-color: #f3f3f3;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    .correct {
+      background-color: #a5d6a7 !important;
+    }
+    .incorrect {
+      background-color: #ef9a9a !important;
+    }
+    #back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #ccc;
+      cursor: pointer;
+    }
+    #feedback {
+      margin-top: 24px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+</style>
+</head>
+<body>
+  <h1>오늘의 영어퀴즈</h1>
+
+  <div id="main-menu">
+    <button onclick="startQuiz('elementary')">초등학생</button>
+    <button onclick="startQuiz('middle')">중학생</button>
+    <button onclick="startQuiz('high')">고등학생</button>
+  </div>
+
+  <div id="quiz-screen" style="display: none;">
+    <button id="back-button" onclick="goBack()">← 뒤로가기</button>
+    <div id="quiz-box"></div>
+    <div id="feedback"></div>
+  </div>
+
+  <script src="quizzes.js"></script>
+  <script>
+    let currentLevel = '';
+    let quizQueue = [];
+    let currentIndex = 0;
+
+    function startQuiz(level) {
+      document.getElementById('main-menu').style.display = 'none';
+      document.getElementById('quiz-screen').style.display = 'block';
+      currentLevel = level;
+      quizQueue = quizzes[level].slice().sort(() => 0.5 - Math.random());
+      currentIndex = 0;
+      showNextQuiz();
+    }
+
+    function goBack() {
+      document.getElementById('quiz-screen').style.display = 'none';
+      document.getElementById('main-menu').style.display = 'block';
+      document.getElementById('quiz-box').innerHTML = '';
+      document.getElementById('feedback').textContent = '';
+    }
+
+    function showNextQuiz() {
+      document.getElementById("feedback").textContent = "";
+      const box = document.getElementById("quiz-box");
+      if (currentIndex >= quizQueue.length) {
+        box.innerHTML = "<p><strong>모든 문제를 풀었습니다!</strong></p>";
+        return;
+      }
+      const quiz = quizQueue[currentIndex++];
+      const word = quiz.question.match(/'(.*?)'/)[1];
+      const currentAnswer = quiz.answer.trim();
+      const allAnswers = quizzes[currentLevel].map(q => q.answer.trim()).filter(a => a);
+      const shuffled = allAnswers.filter(a => a !== currentAnswer).sort(() => 0.5 - Math.random()).slice(0, 3);
+      shuffled.push(currentAnswer);
+      const choices = shuffled.sort(() => 0.5 - Math.random());
+
+      const buttonsHTML = '<div class="choices-container">' + choices.map(choice =>
+        `<button class="choice-btn" onclick="checkAnswer(this, '${currentAnswer}')">${choice}</button>`
+      ).join("") + '</div>';
+
+      box.innerHTML = `
+        <p><strong>${quiz.question}</strong></p>
+        <button onclick="speak('${word}')">🔊 발음 듣기</button>
+        <audio id="audio-${word.toLowerCase()}" src="tts/${word.toLowerCase()}.mp3"></audio>
+        ${buttonsHTML}
+      `;
+    }
+
+    function speak(text) {
+      const audioId = `audio-${text.toLowerCase()}`;
+      const audio = document.getElementById(audioId);
+      if (audio) audio.play();
+    }
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      speechSynthesis.speak(utter);
+    }
+
+    function checkAnswer(button, correctAnswer) {
+      const userChoice = button.textContent.trim();
+      const buttons = document.querySelectorAll(".choice-btn");
+
+      if (userChoice === correctAnswer) {
+      document.getElementById("correct-audio").play();
+        button.classList.add("correct");
+        buttons.forEach(btn => btn.disabled = true);
+        document.getElementById("feedback").textContent = "정답입니다!";
+        document.getElementById("feedback").style.color = "green";
+        setTimeout(showNextQuiz, 2000);
+      } else {
+      document.getElementById("wrong-audio").play();
+        button.classList.add("incorrect");
+        buttons.forEach(btn => {
+          if (btn.textContent.trim() === correctAnswer) {
+            btn.classList.add("correct");
+          }
+          btn.disabled = true;
+        });
+        document.getElementById("feedback").textContent = "오답입니다. 정답은 '" + correctAnswer + "' 입니다.";
+        document.getElementById("feedback").style.color = "red";
+        setTimeout(showNextQuiz, 2000);
+      }
+    }
+  </script>
+
+  <audio id="correct-audio" src="정답.mp3"></audio>
+  <audio id="wrong-audio" src="오답.mp3"></audio>
+
+</body>
+</html>
