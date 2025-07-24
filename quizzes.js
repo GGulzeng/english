@@ -3212,7 +3212,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'bear'",
-      "answer": "낳다"
+      "answer": "견디다, 참다다"
     },
     {
       "question": "단어의 뜻은? 'stay'",
@@ -3336,7 +3336,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'find'",
-      "answer": "찾아내다\n중등 기본"
+      "answer": "찾아내다"
     },
     {
       "question": "단어의 뜻은? 'earth'",
@@ -3560,7 +3560,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'hard'",
-      "answer": "열심히"
+      "answer": "어려운, 열심히"
     },
     {
       "question": "단어의 뜻은? 'fine'",
@@ -3648,7 +3648,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'science'",
-      "answer": "과학\n중등 기본"
+      "answer": "과학"
     },
     {
       "question": "단어의 뜻은? 'bake'",
@@ -3804,7 +3804,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'delicious'",
-      "answer": "맛있는\n중등 기본"
+      "answer": "맛있는"
     },
     {
       "question": "단어의 뜻은? 'fault'",
@@ -4124,7 +4124,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'expensive'",
-      "answer": "비싼\n중등 기본"
+      "answer": "비싼"
     },
     {
       "question": "단어의 뜻은? 'sense'",
