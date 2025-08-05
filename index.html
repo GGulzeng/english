@@ -1,31 +1,35 @@
-<!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="utf-8"/>
 <title>퀴즈</title>
+<link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
 <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 40px;
       text-align: center;
-      background-color: #f9f9f9;
+      background-image: url('칠판.jpeg');
+      background-size: cover;
+      background-position: center;
     }
     h1 {
       font-size: 70px;
       margin-bottom: 30px;
       font-weight: bold;
-      color: #333;
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
     }
     #main-menu {
       display: flex;
       justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 40px;
       margin-top: 40px;
     }
     #main-menu button {
-        width: 500px;
+      width: 500px;
       height: 500px;
       border-radius: 20px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.1);
@@ -41,8 +45,7 @@
       justify-content: center;
       align-items: center;
     }
-    #main-menu button:nth-child(1) { background-color: #f28b82; }
-    #main-menu button:nth-child(2) { background-color: #fbbc04; }
+
     .choices-container {
       display: flex;
       justify-content: space-around;
@@ -51,43 +54,87 @@
       margin-top: 30px;
     }
     .choice-btn {
+      position: relative;
       width: 40%;
       min-width: 300px;
-      height: 120px;
-      font-size: 22px;
+      height: 140px;
+      font-size: 38px;
+      font-family: 'Segoe UI', sans-serif;
       font-weight: bold;
-      border-radius: 14px;
-      background-color: #f3f3f3;
-      border: 1px solid #ccc;
-      cursor: pointer;
-    }
-    .correct { background-color: #a5d6a7 !important; }
-    .incorrect { background-color: #ef9a9a !important; }
-    #back-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 16px;
-      font-size: 16px;
-      border-radius: 8px;
+      background: transparent;
       border: none;
-      background-color: #ccc;
+      color: #fefefe;
       cursor: pointer;
+      text-shadow: 0 0 1px white, 0 0 2px white;
+      transition: 0.2s;
     }
+    .choice-btn:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+    .correct {
+    background-color: transparent !important;
+    color: #ffffff;
+    border: none;
+    }
+    .incorrect {
+    background-color: transparent !important;
+    color: #ffffff;
+    border: none;
+    }
+#back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease;
+}
     #feedback {
       margin-top: 24px;
       font-weight: bold;
       font-size: 18px;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
     }
-    #quiz-box p { font-size: 70px; }
-    #quiz-box p strong { font-size: 80px; }
-    button.pronounce {
-      font-size: 24px;
-      padding: 12px 20px;
+    #quiz-box p {
+      font-size: 64px;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+      font-family: 'Segoe UI', sans-serif;
     }
+    #quiz-box p strong {
+      font-size: 72px;
+    }
+button.pronounce {
+  font-size: 24px;
+  padding: 12px 20px;
+  margin-top: 12px;
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease;
+}
+
+button.pronounce:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.1);
+}
+
     #progress {
       font-size: 24px;
       margin-bottom: 20px;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
     #result-modal {
       display: none;
@@ -126,16 +173,8 @@
       color: #888;
       margin-top: 20px;
     }
-  
-    #main-menu {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 40px;
-    }
-
-    .level-card { width: 500px;
+    .level-card {
+      width: 500px;
       height: 500px;
       border-radius: 30px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.1);
@@ -151,23 +190,39 @@
       justify-content: center;
       align-items: center;
     }
-   
     .level-card:hover {
-     transform: translateY(-8px);
+      transform: translateY(-8px);
     }
-
     .easy { background-color: #55b0fa; }
     .medium { background-color: #f7804d; }
     .emoji {
       font-size: 42px;
       margin-bottom: 10px;
+    }
     .description {
-       font-size: 16px;
+      font-size: 16px;
       font-weight: normal;
       margin-top: 8px;
+    }
+.crayon-stamp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* 버튼에 딱 맞게 */
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  animation: pop-in 0.3s ease-out;
+  z-index: 3;
+}
+@keyframes pop-in {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 </style>
 </head>
 <body>
+
 <h1>오늘의 영어퀴즈</h1><div id="main-menu">
 <div class="level-card easy" onclick="startQuiz('elementary')">
 <div class="emoji">📘</div>
@@ -180,6 +235,7 @@
 <div class="description">중등영어</div>
 </div>
 </div>
+
 
 <div id="quiz-screen" style="display: none;">
 <div id="progress"></div>
@@ -254,43 +310,51 @@
       speak(word);
     }
 
-    function checkAnswer(button, correctAnswer) {
-      const userChoice = button.textContent.trim();
-      const buttons = document.querySelectorAll(".choice-btn");
+function checkAnswer(button, correctAnswer) {
+  const userChoice = button.textContent.trim();
+  const buttons = document.querySelectorAll(".choice-btn");
 
-      if (userChoice === correctAnswer) {
-        document.getElementById("correct-audio").play();
-        button.classList.add("correct");
-        correctCount++;
-        buttons.forEach(btn => btn.disabled = true);
-        document.getElementById("feedback").textContent = "정답입니다!";
-        document.getElementById("feedback").style.color = "green";
-        setTimeout(showNextQuiz, 2000);
-      } else {
-        document.getElementById("wrong-audio").play();
-        button.classList.add("incorrect");
-        buttons.forEach(btn => {
-          if (btn.textContent.trim() === correctAnswer) {
-            btn.classList.add("correct");
-          }
-          btn.disabled = true;
-        });
-        document.getElementById("feedback").textContent = "오답입니다. 정답은 '" + correctAnswer + "' 입니다.";
-        document.getElementById("feedback").style.color = "red";
-        setTimeout(showNextQuiz, 2000);
+  if (userChoice === correctAnswer) {
+    document.getElementById("correct-audio").play();
+    button.classList.add("correct");
+    correctCount++;
+    buttons.forEach(btn => btn.disabled = true);
+    document.getElementById("feedback").textContent = "정답입니다!";
+    document.getElementById("feedback").style.color = "white";
+    showCrayonStamp(button);
+    setTimeout(showNextQuiz, 2000);
+  } else {
+    document.getElementById("wrong-audio").play();
+    button.classList.add("incorrect");
+    buttons.forEach(btn => {
+      if (btn.textContent.trim() === correctAnswer) {
+        btn.classList.add("correct");
+        showCrayonStamp(btn);
       }
-    }
+      btn.disabled = true;
+    });
+    document.getElementById("feedback").textContent = "오답입니다. 정답은 '" + correctAnswer + "' 입니다.";
+    document.getElementById("feedback").style.color = "white";
+    setTimeout(showNextQuiz, 2000);
+  }
+}
 
-    function speak(word) {
-      const audioId = "audio-" + word.toLowerCase();
-      const audio = document.getElementById(audioId);
-      if (audio) {
-        audio.currentTime = 0;
-        audio.play();
-      }
-    }
-
-    function showResultModal() {
+function showCrayonStamp(button) {
+  const img = document.createElement("img");
+  img.src = "crayon-circle.png";
+  img.className = "crayon-stamp";
+  button.style.position = "relative";
+  button.appendChild(img);
+}
+function speak(word) {
+  const audioId = "audio-" + word.toLowerCase();
+  const audio = document.getElementById(audioId);
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+}    
+function showResultModal() {
       const cheerAudio = document.getElementById("cheer-audio");
       if (cheerAudio) {
         cheerAudio.currentTime = 0;
