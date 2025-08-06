@@ -146,7 +146,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'bear'",
-      "answer": "곰"
+      "answer": "곰,견디다"
     },
     {
       "question": "단어의 뜻은? 'apple'",
@@ -3028,7 +3028,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'wear'",
-      "answer": "입고"
+      "answer": "옷을 입다"
     },
     {
       "question": "단어의 뜻은? 'subway'",
