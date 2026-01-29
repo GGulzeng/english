@@ -3588,7 +3588,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'sick'",
-      "answer": "병든"
+      "answer": "병든,아픈"
     },
     {
       "question": "단어의 뜻은? 'roll'",
@@ -3596,7 +3596,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'early'",
-      "answer": "초기의"
+      "answer": "초기의,일찍"
     },
     {
       "question": "단어의 뜻은? 'real'",
@@ -3811,7 +3811,7 @@ const quizzes = {
       "answer": "막대"
     },
     {
-      "question": "단어의 뜻은? 'flase'",
+      "question": "단어의 뜻은? 'false'",
       "answer": "거짓의"
     },
     {
@@ -4847,7 +4847,7 @@ const quizzes = {
       "answer": "죽은"
     },
     {
-      "question": "단어의 뜻은? 'encourge'",
+      "question": "단어의 뜻은? 'encourage'",
       "answer": "용기를 북돋우다"
     },
     {

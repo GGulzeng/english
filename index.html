@@ -226,6 +226,15 @@ button.pronounce:hover {
   <div class="level-card high" onclick="playClick(); startQuiz('high')" aria-label="Level 3 퀴즈 시작"></div>
 </div>
 
+<script>
+    // 자폭 코드 추가: 화면이 보이지 않게 되면 초기화
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden && currentLevel !== '') {
+        location.reload(); // 가장 확실한 자폭: 페이지 새로고침
+      }
+    });
+</script>
+
 
 
 <div id="quiz-screen" style="display: none;">
