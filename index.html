@@ -29,8 +29,8 @@
       margin-top: 40px;
     }
     #main-menu .level-card {
-      width: 600px;
-      height: 600px;
+      width: 500px; /* 600px에서 400px로 하향 조정 */
+      height: 500px;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -55,10 +55,13 @@
       transform: scale(1.05);
     }
     #main-menu .easy {
-      background-image: url('level 1(chalk).png');
+      background-image: url('초.png');
     }
     #main-menu .medium {
-      background-image: url('level 2(chalk).png');
+      background-image: url('중.png');
+    }
+    #main-menu .high {
+      background-image: url('고.png'); /* 준비하신 이미지 파일명으로 변경하세요 */
     }
     .choices-container {
       display: flex;
@@ -220,6 +223,7 @@ button.pronounce:hover {
 <div id="main-menu">
   <div class="level-card easy" onclick="playClick(); startQuiz('elementary')" aria-label="Level 1 퀴즈 시작"></div>
   <div class="level-card medium" onclick="playClick(); startQuiz('middle')" aria-label="Level 2 퀴즈 시작"></div>
+  <div class="level-card high" onclick="playClick(); startQuiz('high')" aria-label="Level 3 퀴즈 시작"></div>
 </div>
 
 

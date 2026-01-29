@@ -146,7 +146,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'bear'",
-      "answer": "곰,견디다"
+      "answer": "곰"
     },
     {
       "question": "단어의 뜻은? 'apple'",
@@ -3173,10 +3173,6 @@ const quizzes = {
     {
       "question": "단어의 뜻은? 'part'",
       "answer": "부분"
-    },
-    {
-      "question": "단어의 뜻은? '-'",
-      "answer": "단  어\n뜻\n단  어\n뜻"
     },
     {
       "question": "단어의 뜻은? 'follow'",
@@ -7342,7 +7338,7 @@ const quizzes = {
     },
     {
       "question": "단어의 뜻은? 'literacy'",
-      "answer": "글을 읽고 쓸 줄 아는 능력"
+      "answer": "읽고 쓰는 능력"
     },
     {
       "question": "단어의 뜻은? 'embed'",
